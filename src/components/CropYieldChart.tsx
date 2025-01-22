@@ -20,22 +20,28 @@ const CropYieldChart: React.FC<CropYieldChartProps> = ({ data }) => {
     if (chartRef.current) {
       const chart = echarts.init(chartRef.current)
 
-      const cropData = data.reduce((acc: { [key: string]: number[] }, item) => {
+      // Optimize data processing
+      const cropData = new Map<string, number[]>()
+      const dataLength = data.length
+      
+      // Single pass data processing
+      for (let i = 0; i < dataLength; i++) {
+        const item = data[i]
         const cropName = item["Crop Name"]
-        const yield_ = Number.parseFloat(item["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"] as string) || 0
-
-        if (!acc[cropName]) {
-          acc[cropName] = []
+        const yield_ = +item["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"] || 0
+        
+        if (!cropData.has(cropName)) {
+          cropData.set(cropName, [])
         }
-        acc[cropName].push(yield_)
-        return acc
-      }, {} as { [key: string]: number[] }) // Explicitly typing the accumulator
-
-      const averageYields = Object.entries(cropData).map(([crop, yields]) => ({
+        cropData.get(cropName)!.push(yield_)
+      }
+      
+      // More efficient average calculation
+      const averageYields = Array.from(cropData.entries()).map(([crop, yields]) => ({
         crop,
-        averageYield: (yields as number[]).reduce((sum, yield_) => sum + yield_, 0) / (yields as number[]).length, // Explicitly typing yields as number[]
+        averageYield: yields.reduce((sum, y) => sum + y, 0) / yields.length
       }))
-
+      
       // Define your custom color list
       const colorList = [
         "#FF8C00", // Orange
@@ -50,18 +56,10 @@ const CropYieldChart: React.FC<CropYieldChartProps> = ({ data }) => {
         "#00FA9A", // MediumSpringGreen
       ]
 
-      // Ensure that the number of colors is sufficient for the number of crops
-      const generateColors = (numColors: number): string[] => {
-        const colors: string[] = [] // Explicitly defining the array type as string[]
-        for (let i = 0; i < numColors; i++) {
-          colors.push(colorList[i % colorList.length]) // Loop through the color list
-        }
-        return colors
-      }
-      
-
-      // Get an array of colors for each crop
-      const colors = generateColors(averageYields.length)
+      // Cache color calculations
+      const colors = new Array(averageYields.length)
+        .fill(0)
+        .map((_, i) => colorList[i % colorList.length])
 
       const option = {
         title: {

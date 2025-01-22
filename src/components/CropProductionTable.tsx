@@ -14,44 +14,42 @@ interface CropProductionTableProps {
 
 const CropProductionTable: React.FC<CropProductionTableProps> = ({ data }) => {
   const tableData = useMemo(() => {
-    // Group data by year
-    const yearlyData: Record<string, AgricultureData[]> = data.reduce((acc: { [key: string]: AgricultureData[] }, item) => {
+    // Pre-calculate the length for better performance
+    const dataLength = data.length;
+    const yearlyData: Record<string, AgricultureData[]> = {};
+    
+    // Direct object assignment instead of reduce
+    for (let i = 0; i < dataLength; i++) {
+      const item = data[i];
       const year = item.Year;
-      if (!acc[year]) {
-        acc[year] = [];
-      }
-      acc[year].push(item);
-      return acc;
-    }, {});
+      if (!yearlyData[year]) yearlyData[year] = [];
+      yearlyData[year].push(item);
+    }
+    
+    // Use typed arrays for better performance
+    return Object.entries(yearlyData)
+      .map(([year, yearData]) => {
+        const len = yearData.length;
+        let maxProduction = -Infinity;
+        let minProduction = Infinity;
+        let maxCrop = '';
+        let minCrop = '';
 
-    // Calculate max and min for each year
-    return Object.entries(yearlyData).map(([year, yearData]) => {
-      let maxProduction = -Infinity;
-      let minProduction = Infinity;
-      let maxCrop = '';
-      let minCrop = '';
-
-      yearData.forEach(item => {
-        // Convert production value to number and handle potential NaN
-        const production = parseFloat(item["Crop Production (UOM:t(Tonnes))"].toString());
-        if (!isNaN(production)) {
+        // Single loop for better performance
+        for (let i = 0; i < len; i++) {
+          const production = +yearData[i]["Crop Production (UOM:t(Tonnes))"];
           if (production > maxProduction) {
             maxProduction = production;
-            maxCrop = item["Crop Name"];
+            maxCrop = yearData[i]["Crop Name"];
           }
           if (production < minProduction) {
             minProduction = production;
-            minCrop = item["Crop Name"];
+            minCrop = yearData[i]["Crop Name"];
           }
         }
-      });
-
-      return {
-        year,
-        maxCrop,
-        minCrop,
-      };
-    }).sort((a, b) => parseInt(a.year) - parseInt(b.year));
+        return { year, maxCrop, minCrop };
+      })
+      .sort((a, b) => +a.year - +b.year);  // Using unary + for faster conversion
   }, [data]);
 
 
