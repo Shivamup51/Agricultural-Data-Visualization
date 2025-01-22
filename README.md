@@ -38,7 +38,7 @@ To get the project running locally, follow these steps:
 
 3. **Run the Development Server Start the project in development mode:**
     ```bash
-    yarn dev
+    yarn start or yarn dev
 4. **Open the Project in Your Browser Once the development server is running, open the project by visiting http://localhost:3000 in your browser.**
 
 
