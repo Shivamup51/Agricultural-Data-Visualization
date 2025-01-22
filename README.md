@@ -10,6 +10,11 @@ A TypeScript-based project that visualizes Indian agriculture data, using Apache
 - **Memoization for Performance**: To ensure the app performs well with large datasets, memoization techniques are used for computationally expensive operations.
 ##  Screenshots
 
+![Screenshot 2025-01-21 134258](https://github.com/user-attachments/assets/f004e239-5aad-481e-9a60-5b93a580580d)
+![Screenshot 2025-01-21 134311](https://github.com/user-attachments/assets/b90476c8-f62f-47ee-95c5-9fe22dac6e4a)
+![Screenshot 2025-01-21 134347](https://github.com/user-attachments/assets/ee135d96-0c7d-4e5e-a10d-07c986e70261)
+![Screenshot 2025-01-21 134358](https://github.com/user-attachments/assets/12301cdf-288f-4c58-ac2e-5ccd52af2749)
+
 
 
 ## Technical Stack
