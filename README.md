@@ -1,4 +1,3 @@
-
 # Indian Agriculture Data Visualization
 
 A TypeScript-based project that visualizes Indian agriculture data, using Apache ECharts for data visualization and Mantine UI for responsive design. The project aims to display insights from Indian agricultural statistics, such as crop yields and production trends, through interactive charts and data tables.
@@ -10,12 +9,6 @@ A TypeScript-based project that visualizes Indian agriculture data, using Apache
 - **Data Handling**: The project handles missing or incomplete data gracefully, using placeholder values or error messages as necessary.
 - **Memoization for Performance**: To ensure the app performs well with large datasets, memoization techniques are used for computationally expensive operations.
 ##  Screenshots
-
-![Screenshot 2025-01-21 134258](https://github.com/user-attachments/assets/42cca386-4397-415d-a4b9-f65b2e19d4de)
-![Screenshot 2025-01-21 134311](https://github.com/user-attachments/assets/3594b705-0536-436b-8184-41397d033556)
-![Screenshot 2025-01-21 134347](https://github.com/user-attachments/assets/958e4ffe-51c5-404b-9564-b5543bc779cf)
-![Screenshot 2025-01-21 134358](https://github.com/user-attachments/assets/13b368d2-6d72-4863-bcaa-f47e799d1a9e)
-
 
 
 
@@ -61,7 +54,6 @@ To get the project running locally, follow these steps:
 **Advanced Data Filtering:** We aim to add more filtering options for the data table, allowing users to view crop statistics based on different parameters (e.g., region, crop type).
 Dynamic Chart Updates: The bar chart will be made interactive, allowing users to filter or select specific years or crop types to visualize data more effectively.
 
-- **Open a pull request to merge your changes into the main branch.**
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
