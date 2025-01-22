@@ -60,19 +60,6 @@ To get the project running locally, follow these steps:
 
 **Advanced Data Filtering:** We aim to add more filtering options for the data table, allowing users to view crop statistics based on different parameters (e.g., region, crop type).
 Dynamic Chart Updates: The bar chart will be made interactive, allowing users to filter or select specific years or crop types to visualize data more effectively.
-## Contributing
-
-If you’d like to contribute to this project, follow these steps:
-
-- **Fork the repository.**
-
-- **Create a new branch for your changes (git checkout -b feature/your-feature).**
-
-- **Make your changes and test them locally.**
-
-- **Commit your changes (git commit -am 'Add new feature').**
-
-- **Push to the branch (git push origin feature/your-feature).**
 
 - **Open a pull request to merge your changes into the main branch.**
 ## License
